@@ -1,0 +1,225 @@
+@import 'tailwindcss';
+
+/* Variante "dark:" do Tailwind usando a classe .dark no <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ───────────── Design tokens (claro / escuro) ───────────── */
+:root {
+  --bg: #fff8fc;
+  --surface: #ffffff;
+  --text: #38233f;
+  --muted: #6b5573;
+  --rose: #ffd6e8;
+  --pink: #f4a7ca;
+  --lilac: #d8c4ff;
+  --accent: #a855f7;
+  --accent-text: #7e22ce;
+  --line: rgba(56, 35, 63, 0.14);
+  --glass: rgba(255, 255, 255, 0.72);
+  --ring: #a855f7;
+  --header-h: 72px;
+  --gutter: clamp(16px, 7vw, 132px);
+  /* tempo da intro: as entradas do hero esperam ela terminar */
+  --intro-delay: 2.6s;
+  color-scheme: light;
+}
+
+html.no-intro {
+  --intro-delay: 0.2s;
+}
+
+html.dark {
+  --bg: #150b1e;
+  --surface: #21132d;
+  --text: #fff8fc;
+  --muted: #cdbbd6;
+  --accent: #c084fc;
+  --accent-text: #c084fc;
+  --line: rgba(255, 248, 252, 0.16);
+  --glass: rgba(33, 19, 45, 0.7);
+  --ring: transparent;
+  color-scheme: dark;
+}
+
+/* Deixa as cores disponíveis como classes do Tailwind: text-muted, bg-surface... */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-rose: var(--rose);
+  --color-pink: var(--pink);
+  --color-lilac: var(--lilac);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+}
+
+@property --hole {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+
+/* ───────────── Base ───────────── */
+html {
+  background: var(--bg);
+  overflow-x: clip;
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+::selection {
+  background: var(--lilac);
+  color: #38233f;
+}
+
+/* ───────────── Utilitários do projeto ───────────── */
+.g {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+.display {
+  font-size: clamp(3.5rem, 10vw, 11rem);
+  line-height: 0.92;
+}
+.h2 {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  line-height: 1;
+}
+
+.sec {
+  position: relative;
+  z-index: 1;
+  padding: 72px var(--gutter);
+}
+.sec + .sec {
+  margin-top: 24px;
+}
+
+.ibtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+.ibtn:active {
+  transform: scale(0.95);
+}
+
+/* Metal rosa: assinatura visual (botões e destaques) */
+.metal {
+  color: #38233f;
+  background: linear-gradient(
+    115deg,
+    #fff8fc 0%,
+    #ffd6e8 18%,
+    #f4a7ca 38%,
+    #fff8fc 50%,
+    #d8c4ff 66%,
+    #f4a7ca 84%,
+    #ffd6e8 100%
+  );
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -2px 6px rgba(168, 85, 247, 0.35),
+    0 8px 24px rgba(168, 85, 247, 0.28);
+  border: 1.5px solid var(--ring);
+  transition:
+    background-position 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.2s ease-out;
+}
+.metal:hover,
+.metal:focus-visible {
+  background-position: 100% 50%;
+  transform: translateY(-2px);
+}
+
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: 12px;
+  z-index: 200;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  transform: translateY(-160%);
+  transition: transform 0.2s ease-out;
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* Revelações ligadas à rolagem (onde o navegador suporta) */
+@supports (animation-timeline: view()) {
+  .rv {
+    animation: rv linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 28%;
+  }
+  @keyframes rv {
+    from {
+      opacity: 0;
+      transform: translateY(60px) rotate(2deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Troca de tema abrindo em círculo a partir do botão */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Movimento reduzido: tudo parado, conteúdo inteiro visível */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
