@@ -16,7 +16,9 @@ function updateMobileProgress() {
   const rect = timeline.value.getBoundingClientRect()
   const startPoint = window.innerHeight * 0.82
   const trackingDistance = rect.height + window.innerHeight * 0.64
-  const progress = Math.min(1, Math.max(0, (startPoint - rect.top) / trackingDistance))
+  const rawProgress = (startPoint - rect.top) / trackingDistance
+  const progress = Math.min(1, Math.max(0, rawProgress * 2.5))
+  drawPath.value?.style.setProperty('stroke-dasharray', '1 1')
   drawPath.value?.style.setProperty('stroke-dashoffset', String(1 - progress))
 }
 
