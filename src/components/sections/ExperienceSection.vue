@@ -106,5 +106,11 @@ const ARC = 'M 50 0 C 96 160, 96 330, 50 500 S 4 840, 50 1000'
   .list {
     gap: 64px;
   }
+  @supports (animation-timeline: view()) {
+    .draw {
+      /* No mobile, a linha acompanha o conteúdo em um trecho de scroll menor. */
+      animation-range: entry 0% cover 18%;
+    }
+  }
 }
 </style>
