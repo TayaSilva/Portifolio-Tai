@@ -114,4 +114,9 @@ const id = (n: string) => `${uid}-${n}`
   align-self: flex-end;
   margin: 0 0 3px -0.12em;
 }
+@media (max-width: 767px) {
+  .word {
+    display: none;
+  }
+}
 </style>
