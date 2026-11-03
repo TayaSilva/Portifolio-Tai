@@ -49,36 +49,36 @@ onMounted(() => {
       <SectionHeader number="03" title="Projetos" heading-id="projetos-heading">
         <p class="text-lg text-muted">Sites que construí, do conceito ao ar.</p>
       </SectionHeader>
-      <div class="project-tools">
-        <p class="g counter text-2xl text-muted" aria-hidden="true">
-          <span class="text-accent">{{ pad(current) }}</span> / {{ pad(projects.length) }}
-        </p>
-        <div class="carousel-controls" aria-label="Navegação dos projetos">
-          <button
-            type="button"
-            class="carousel-button"
-            :disabled="current === 1"
-            aria-label="Projeto anterior"
-            @click="previousProject"
-          >
-            <span aria-hidden="true">←</span>
-          </button>
-          <button
-            type="button"
-            class="carousel-button"
-            :disabled="current === projects.length"
-            aria-label="Próximo projeto"
-            @click="nextProject"
-          >
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
-      </div>
+      <p class="g project-counter text-2xl text-muted" aria-hidden="true">
+        <span class="text-accent">{{ pad(current) }}</span> / {{ pad(projects.length) }}
+      </p>
     </div>
 
-    <div ref="row" class="row" tabindex="0" aria-label="Lista de projetos (role para o lado)">
-      <div v-for="(p, i) in projects" :key="p.slug" :data-index="i" class="contents-wrap">
-        <ProjectCard :project="p" :index="i" />
+    <div class="carousel-shell">
+      <div class="carousel-controls" aria-label="Navegação dos projetos">
+        <button
+          type="button"
+          class="carousel-button previous"
+          :disabled="current === 1"
+          aria-label="Projeto anterior"
+          @click="previousProject"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <button
+          type="button"
+          class="carousel-button next"
+          :disabled="current === projects.length"
+          aria-label="Próximo projeto"
+          @click="nextProject"
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+      <div ref="row" class="row" tabindex="0" aria-label="Lista de projetos (role para o lado)">
+        <div v-for="(p, i) in projects" :key="p.slug" :data-index="i" class="contents-wrap">
+          <ProjectCard :project="p" :index="i" />
+        </div>
       </div>
     </div>
   </section>
@@ -107,20 +107,17 @@ onMounted(() => {
   flex: none;
   scroll-snap-align: start;
 }
-.project-tools {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-bottom: 44px;
-}
-.counter {
-  margin: 0;
+.project-counter {
+  margin: 0 0 44px;
 }
 .carousel-controls {
-  display: flex;
-  gap: 8px;
+  display: contents;
 }
 .carousel-button {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
   width: 44px;
   height: 44px;
   display: grid;
@@ -138,19 +135,28 @@ onMounted(() => {
     background-color 0.2s ease,
     transform 0.2s ease;
 }
+.carousel-shell {
+  position: relative;
+}
+.carousel-button.previous {
+  left: 14px;
+}
+.carousel-button.next {
+  right: 14px;
+}
 .carousel-button:hover:not(:disabled),
 .carousel-button:focus-visible {
   color: var(--accent-text);
   border-color: var(--accent);
   background: color-mix(in oklab, var(--rose) 35%, var(--glass));
-  transform: translateY(-2px);
+  transform: translateY(calc(-50% - 2px));
 }
 .carousel-button:disabled {
   opacity: 0.35;
   cursor: not-allowed;
 }
 @media (max-width: 1023px) {
-  .project-tools {
+  .project-counter {
     margin-bottom: 18px;
   }
   .carousel-controls {
