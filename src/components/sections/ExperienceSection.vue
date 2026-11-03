@@ -17,7 +17,7 @@ function updateMobileProgress() {
   const startPoint = window.innerHeight * 0.82
   const trackingDistance = rect.height + window.innerHeight * 0.64
   const rawProgress = (startPoint - rect.top) / trackingDistance
-  const progress = Math.min(1, Math.max(0, rawProgress * 2.5))
+  const progress = Math.min(1, Math.max(0, rawProgress * 6))
   drawPath.value?.style.setProperty('stroke-dasharray', '1 1')
   drawPath.value?.style.setProperty('stroke-dashoffset', String(1 - progress))
 }
