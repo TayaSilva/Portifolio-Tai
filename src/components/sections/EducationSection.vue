@@ -332,6 +332,12 @@ html.dark .bento.big {
   }
 }
 @media (max-width: 639px) {
+  .education :deep(.g) {
+    font-weight: 500;
+  }
+  .education :deep(.h2) {
+    font-size: 2.25rem;
+  }
   .bento {
     grid-column: 1 / -1;
     padding: 22px;
@@ -357,6 +363,10 @@ html.dark .bento.big {
   }
   .badge {
     font-size: 13px;
+    font-weight: 500;
+  }
+  .bento.full > h3 {
+    font-size: 18px;
     font-weight: 500;
   }
 }

@@ -170,6 +170,16 @@ html.dark .tags li {
   .btn {
     padding: 0 16px;
     gap: 12px;
+    min-height: 58px;
+  }
+  .num {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .name {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.2;
   }
   .tags {
     padding: 4px 16px 20px;
