@@ -339,5 +339,25 @@ html.dark .bento.big {
   .bento.big {
     min-height: 260px;
   }
+  .kick {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .title,
+  .title-big {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .title-big {
+    max-width: 20ch;
+  }
+  .dates {
+    font-size: 14px;
+  }
+  .badge {
+    font-size: 13px;
+    font-weight: 500;
+  }
 }
 </style>
