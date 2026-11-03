@@ -80,6 +80,26 @@ onMounted(() => {
           <ProjectCard :project="p" :index="i" />
         </div>
       </div>
+      <div class="carousel-controls" aria-label="Navegação dos projetos">
+        <button
+          type="button"
+          class="carousel-button previous"
+          :disabled="current === 1"
+          aria-label="Projeto anterior"
+          @click="previousProject"
+        >
+          <span aria-hidden="true">←</span>
+        </button>
+        <button
+          type="button"
+          class="carousel-button next"
+          :disabled="current === projects.length"
+          aria-label="Próximo projeto"
+          @click="nextProject"
+        >
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
     </div>
   </section>
 </template>
@@ -111,13 +131,19 @@ onMounted(() => {
   margin: 0 0 44px;
 }
 .carousel-controls {
-  display: contents;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0 var(--gutter) 0 0;
+  margin-top: -22px;
+  position: relative;
+  z-index: 2;
+}
+.carousel-shell > .carousel-controls:first-child {
+  display: none;
 }
 .carousel-button {
-  position: absolute;
-  top: 50%;
-  z-index: 2;
-  transform: translateY(-50%);
+  position: relative;
   width: 44px;
   height: 44px;
   display: grid;
@@ -138,18 +164,12 @@ onMounted(() => {
 .carousel-shell {
   position: relative;
 }
-.carousel-button.previous {
-  left: 14px;
-}
-.carousel-button.next {
-  right: 14px;
-}
 .carousel-button:hover:not(:disabled),
 .carousel-button:focus-visible {
   color: var(--accent-text);
   border-color: var(--accent);
   background: color-mix(in oklab, var(--rose) 35%, var(--glass));
-  transform: translateY(calc(-50% - 2px));
+  transform: translateY(-2px);
 }
 .carousel-button:disabled {
   opacity: 0.35;
