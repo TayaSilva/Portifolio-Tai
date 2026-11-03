@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- SEO básico -->
+    <title>Taiane Silva · Desenvolvedora Front-End</title>
+    <meta
+      name="description"
+      content="Portfólio de Taiane Silva, desenvolvedora Front-End em São Paulo. Interfaces com React, Next.js, Vue e Vite, e MBA em UX Design em andamento."
+    />
+    <meta name="author" content="Taiane Silva" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://taianesilva.vercel.app/" />
+    <meta name="theme-color" content="#FFF8FC" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#150B1E" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph / redes sociais -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Taiane Silva" />
+    <meta property="og:title" content="Taiane Silva · Desenvolvedora Front-End" />
+    <meta
+      property="og:description"
+      content="Transformo ideias em experiências digitais, unindo tecnologia, design e uma dose de imaginação."
+    />
+    <meta property="og:url" content="https://taianesilva.vercel.app/" />
+    <meta property="og:image" content="https://taianesilva.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Taiane Silva · Desenvolvedora Front-End" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Taiane Silva · Desenvolvedora Front-End" />
+    <meta
+      name="twitter:description"
+      content="Transformo ideias em experiências digitais, unindo tecnologia, design e uma dose de imaginação."
+    />
+    <meta name="twitter:image" content="https://taianesilva.vercel.app/og-image.png" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Grotesk:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Dados estruturados (o Google entende quem é a pessoa do site) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Taiane Silva",
+        "jobTitle": "Desenvolvedora Front-End",
+        "url": "https://taianesilva.vercel.app/",
+        "email": "mailto:taianens99@gmail.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "São Paulo", "addressCountry": "BR" },
+        "worksFor": { "@type": "Organization", "name": "Pathbit" },
+        "alumniOf": [
+          { "@type": "EducationalOrganization", "name": "Instituto Infnet" },
+          { "@type": "EducationalOrganization", "name": "Faculdade Líbano" },
+          { "@type": "EducationalOrganization", "name": "FAM" }
+        ],
+        "knowsAbout": ["React", "Next.js", "Vue", "Vite", "TypeScript", "Tailwind", "UX Design", "Playwright"],
+        "sameAs": ["https://www.linkedin.com/in/taianesilva99/", "https://github.com/TayaSilva"]
+      }
+    </script>
+
+    <!-- Tema sem "piscar": aplica claro/escuro antes da página pintar -->
+    <script>
+      ;(function () {
+        try {
+          var saved = localStorage.getItem('ts-theme')
+          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+          if (dark) document.documentElement.classList.add('dark')
+          if (sessionStorage.getItem('ts-intro') || location.hash) document.documentElement.classList.add('no-intro')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <p style="padding: 24px; font-family: sans-serif">
+        Taiane Silva · Desenvolvedora Front-End. Ative o JavaScript para ver o portfólio completo, ou fale comigo
+        em taianens99@gmail.com.
+      </p>
+    </noscript>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
