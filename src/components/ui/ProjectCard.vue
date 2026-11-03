@@ -80,9 +80,9 @@ const broken = ref(false)
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background: linear-gradient(135deg, rgba(244, 167, 202, 0.28), rgba(216, 196, 255, 0.18));
-  mix-blend-mode: soft-light;
-  opacity: 0.75;
+  background: #f4a7ca;
+  mix-blend-mode: color;
+  opacity: 0.72;
   transition: opacity 0.35s ease-out;
 }
 .card:hover .media,
@@ -91,7 +91,7 @@ const broken = ref(false)
 }
 .card:hover .media::after,
 .card:focus-visible .media::after {
-  opacity: 0.95;
+  opacity: 0.82;
 }
 .shot,
 .placeholder {
