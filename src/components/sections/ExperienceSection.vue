@@ -14,9 +14,9 @@ function updateMobileProgress() {
   if (!window.matchMedia('(max-width: 1023px)').matches || !timeline.value) return
 
   const rect = timeline.value.getBoundingClientRect()
-  const trackingDistance = rect.height * 0.72
-  const viewportPoint = window.innerHeight * 0.82
-  const progress = Math.min(1, Math.max(0, (viewportPoint - rect.top) / trackingDistance))
+  const startPoint = window.innerHeight * 0.82
+  const trackingDistance = rect.height + window.innerHeight * 0.64
+  const progress = Math.min(1, Math.max(0, (startPoint - rect.top) / trackingDistance))
   drawPath.value?.style.setProperty('stroke-dashoffset', String(1 - progress))
 }
 
