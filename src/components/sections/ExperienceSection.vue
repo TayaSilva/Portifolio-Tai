@@ -1,13 +1,44 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { jobs } from '@/data/career'
 import { formatDuration, formatRange } from '@/data/dates'
 import SectionHeader from '../ui/SectionHeader.vue'
 
 const ARC = 'M 50 0 C 96 160, 96 330, 50 500 S 4 840, 50 1000'
+const section = ref<HTMLElement | null>(null)
+const mobileProgress = ref(0)
+let frame = 0
+
+function updateMobileProgress() {
+  frame = 0
+  if (!window.matchMedia('(max-width: 1023px)').matches || !section.value) return
+
+  const rect = section.value.getBoundingClientRect()
+  const trackingDistance = rect.height * 0.55
+  const viewportPoint = window.innerHeight * 0.72
+  mobileProgress.value = Math.min(1, Math.max(0, (viewportPoint - rect.top) / trackingDistance))
+}
+
+function onScroll() {
+  if (frame) return
+  frame = window.requestAnimationFrame(updateMobileProgress)
+}
+
+onMounted(() => {
+  updateMobileProgress()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('resize', onScroll, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('resize', onScroll)
+  if (frame) window.cancelAnimationFrame(frame)
+})
 </script>
 
 <template>
-  <section id="experiencia" class="sec" aria-labelledby="experiencia-heading">
+  <section ref="section" id="experiencia" class="sec" aria-labelledby="experiencia-heading">
     <SectionHeader number="04" title="Experiência" heading-id="experiencia-heading" />
     <div class="timeline">
       <!-- linha em arco que se desenha com a rolagem -->
@@ -17,6 +48,7 @@ const ARC = 'M 50 0 C 96 160, 96 330, 50 500 S 4 840, 50 1000'
           class="draw"
           pathLength="1"
           :d="ARC"
+          :style="{ '--mobile-progress': mobileProgress }"
           fill="none"
           stroke="var(--accent)"
           stroke-width="2"
@@ -106,11 +138,10 @@ const ARC = 'M 50 0 C 96 160, 96 330, 50 500 S 4 840, 50 1000'
   .list {
     gap: 64px;
   }
-  @supports (animation-timeline: view()) {
-    .draw {
-      /* No mobile, a linha acompanha o conteúdo em um trecho de scroll menor. */
-      animation-range: entry 0% cover 18%;
-    }
+  .draw {
+    animation: none;
+    stroke-dasharray: 1;
+    stroke-dashoffset: calc(1 - var(--mobile-progress, 0));
   }
 }
 </style>
