@@ -66,9 +66,7 @@ const sparks = [
     <div class="relative flex flex-col gap-7">
       <StationLabel number="06" />
       <h2 id="contato-heading" class="g display rv max-w-[8ch]">Vamos conversar?</h2>
-      <p class="max-w-[40ch] text-lg text-muted">
-        O caminho mais rápido é o WhatsApp. Se preferir, escolha outro canal.
-      </p>
+     
 
       <a
         class="wa metal"
@@ -367,7 +365,16 @@ const sparks = [
   .wa {
     width: 100%;
     justify-content: center;
-    padding: 12px 20px;
+    min-height: 56px;
+    gap: 10px;
+    padding: 8px 16px;
+  }
+  .wa :deep(svg) {
+    width: 24px;
+    height: 24px;
+  }
+  .wa .g {
+    font-size: 1rem;
   }
 }
 </style>
