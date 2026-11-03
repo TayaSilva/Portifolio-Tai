@@ -47,9 +47,10 @@ const broken = ref(false)
 .card {
   position: relative;
   flex: 0 0 min(60vw, 900px);
+  min-width: 0;
   scroll-snap-align: start;
   display: grid;
-  grid-template-columns: 1.2fr 1fr;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 24px;
   padding: 22px;
   border-radius: 28px;
@@ -65,6 +66,8 @@ const broken = ref(false)
 /* máscara em paralelogramo que vira retângulo no hover/foco */
 .media {
   position: relative;
+  width: 100%;
+  min-width: 0;
   min-height: 320px;
   border-radius: 18px;
   overflow: hidden;
@@ -80,6 +83,7 @@ const broken = ref(false)
   position: absolute;
   inset: 0;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -139,7 +143,7 @@ const broken = ref(false)
 @media (max-width: 1023px) {
   .card {
     flex-basis: 86vw;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding: 16px;
   }
   .media {
