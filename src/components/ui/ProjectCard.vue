@@ -147,8 +147,20 @@ const broken = ref(false)
     padding: 16px;
   }
   .media {
-    min-height: 200px;
-    aspect-ratio: 16 / 10;
+    min-height: 0;
+    aspect-ratio: 1440 / 742;
+    clip-path: none;
+  }
+  .card:hover .media,
+  .card:focus-visible .media {
+    clip-path: none;
+  }
+  .shot {
+    object-fit: contain;
+  }
+  .card:hover .shot,
+  .card:focus-visible .shot {
+    transform: none;
   }
 }
 </style>
