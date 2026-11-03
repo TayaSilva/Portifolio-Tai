@@ -1,0 +1,8 @@
+{
+  "name": "Taiane Silva · Desenvolvedora Front-End",
+  "short_name": "Taiane Silva",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }],
+  "theme_color": "#FFF8FC",
+  "background_color": "#FFF8FC",
+  "display": "standalone"
+}
