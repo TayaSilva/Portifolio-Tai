@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useNavigation } from '@/composables/useNavigation'
 import { profile } from '@/data/profile'
 import PlanetSvg from '../ui/PlanetSvg.vue'
 import StationLabel from '../ui/StationLabel.vue'
 
-const { navigate } = useNavigation()
 const first = profile.firstName.split('')
 const last = profile.lastName.split('')
 </script>
@@ -33,10 +31,7 @@ const last = profile.lastName.split('')
 
       <p class="tagline">{{ profile.tagline }}</p>
 
-      <a href="#sobre" class="scroll-hint" @click.prevent="navigate('sobre', false)">
-        <span class="line" aria-hidden="true" />
-        Role para explorar
-      </a>
+     
     </div>
 
     <div class="ghost-wrap" aria-hidden="true">
