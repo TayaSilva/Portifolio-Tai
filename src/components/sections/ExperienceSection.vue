@@ -5,16 +5,16 @@ import { formatDuration, formatRange } from '@/data/dates'
 import SectionHeader from '../ui/SectionHeader.vue'
 
 const ARC = 'M 50 0 C 96 160, 96 330, 50 500 S 4 840, 50 1000'
-const section = ref<HTMLElement | null>(null)
+const timeline = ref<HTMLElement | null>(null)
 const drawPath = ref<SVGPathElement | null>(null)
 let frame = 0
 
 function updateMobileProgress() {
   frame = 0
-  if (!window.matchMedia('(max-width: 1023px)').matches || !section.value) return
+  if (!window.matchMedia('(max-width: 1023px)').matches || !timeline.value) return
 
-  const rect = section.value.getBoundingClientRect()
-  const trackingDistance = rect.height * 0.35
+  const rect = timeline.value.getBoundingClientRect()
+  const trackingDistance = rect.height * 0.72
   const viewportPoint = window.innerHeight * 0.82
   const progress = Math.min(1, Math.max(0, (viewportPoint - rect.top) / trackingDistance))
   drawPath.value?.style.setProperty('stroke-dashoffset', String(1 - progress))
@@ -41,9 +41,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <section ref="section" id="experiencia" class="sec" aria-labelledby="experiencia-heading">
+  <section id="experiencia" class="sec" aria-labelledby="experiencia-heading">
     <SectionHeader number="04" title="Experiência" heading-id="experiencia-heading" />
-    <div class="timeline">
+    <div ref="timeline" class="timeline">
       <!-- linha em arco que se desenha com a rolagem -->
       <svg viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
         <path :d="ARC" fill="none" stroke="var(--line)" stroke-width="2" vector-effect="non-scaling-stroke" />
