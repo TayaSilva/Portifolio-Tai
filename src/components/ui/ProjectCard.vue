@@ -74,9 +74,24 @@ const broken = ref(false)
   clip-path: polygon(14% 0, 100% 0, 86% 100%, 0 100%);
   transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(244, 167, 202, 0.28), rgba(216, 196, 255, 0.18));
+  mix-blend-mode: soft-light;
+  opacity: 0.75;
+  transition: opacity 0.35s ease-out;
+}
 .card:hover .media,
 .card:focus-visible .media {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.card:hover .media::after,
+.card:focus-visible .media::after {
+  opacity: 0.95;
 }
 .shot,
 .placeholder {
