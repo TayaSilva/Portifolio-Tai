@@ -8,6 +8,25 @@ const row = ref<HTMLElement | null>(null)
 const current = ref(1)
 const pad = (n: number) => String(n).padStart(2, '0')
 
+function scrollToProject(index: number) {
+  const el = row.value
+  const card = el?.querySelector<HTMLElement>(`[data-index="${index}"]`)
+  if (!el || !card) return
+
+  el.scrollTo({
+    left: card.offsetLeft,
+    behavior: 'smooth',
+  })
+}
+
+function previousProject() {
+  scrollToProject(Math.max(0, current.value - 2))
+}
+
+function nextProject() {
+  scrollToProject(Math.min(projects.length - 1, current.value))
+}
+
 /* contador "01 / 05" acompanha o card visível na fileira */
 onMounted(() => {
   const el = row.value
@@ -30,9 +49,31 @@ onMounted(() => {
       <SectionHeader number="03" title="Projetos" heading-id="projetos-heading">
         <p class="text-lg text-muted">Sites que construí, do conceito ao ar.</p>
       </SectionHeader>
-      <p class="g mb-11 text-2xl text-muted" aria-hidden="true">
-        <span class="text-accent">{{ pad(current) }}</span> / {{ pad(projects.length) }}
-      </p>
+      <div class="project-tools">
+        <p class="g counter text-2xl text-muted" aria-hidden="true">
+          <span class="text-accent">{{ pad(current) }}</span> / {{ pad(projects.length) }}
+        </p>
+        <div class="carousel-controls" aria-label="Navegação dos projetos">
+          <button
+            type="button"
+            class="carousel-button"
+            :disabled="current === 1"
+            aria-label="Projeto anterior"
+            @click="previousProject"
+          >
+            <span aria-hidden="true">←</span>
+          </button>
+          <button
+            type="button"
+            class="carousel-button"
+            :disabled="current === projects.length"
+            aria-label="Próximo projeto"
+            @click="nextProject"
+          >
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div ref="row" class="row" tabindex="0" aria-label="Lista de projetos (role para o lado)">
@@ -65,5 +106,55 @@ onMounted(() => {
   display: flex;
   flex: none;
   scroll-snap-align: start;
+}
+.project-tools {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 44px;
+}
+.counter {
+  margin: 0;
+}
+.carousel-controls {
+  display: flex;
+  gap: 8px;
+}
+.carousel-button {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  background: var(--glass);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+.carousel-button:hover:not(:disabled),
+.carousel-button:focus-visible {
+  color: var(--accent-text);
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--rose) 35%, var(--glass));
+  transform: translateY(-2px);
+}
+.carousel-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+@media (max-width: 1023px) {
+  .project-tools {
+    margin-bottom: 18px;
+  }
+  .carousel-controls {
+    display: none;
+  }
 }
 </style>
