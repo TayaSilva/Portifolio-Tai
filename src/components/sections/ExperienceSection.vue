@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { jobs } from '@/data/career'
 import { formatDuration, formatRange } from '@/data/dates'
 import SectionHeader from '../ui/SectionHeader.vue'
@@ -7,15 +7,18 @@ import SectionHeader from '../ui/SectionHeader.vue'
 const ARC = 'M 50 0 C 96 160, 96 330, 50 500 S 4 840, 50 1000'
 const section = ref<HTMLElement | null>(null)
 const mobileProgress = ref(0)
+const isMobile = ref(false)
+const mobileDashOffset = computed(() => (isMobile.value ? 1 - mobileProgress.value : undefined))
 let frame = 0
 
 function updateMobileProgress() {
   frame = 0
-  if (!window.matchMedia('(max-width: 1023px)').matches || !section.value) return
+  isMobile.value = window.matchMedia('(max-width: 1023px)').matches
+  if (!isMobile.value || !section.value) return
 
   const rect = section.value.getBoundingClientRect()
-  const trackingDistance = rect.height * 0.55
-  const viewportPoint = window.innerHeight * 0.72
+  const trackingDistance = rect.height * 0.35
+  const viewportPoint = window.innerHeight * 0.82
   mobileProgress.value = Math.min(1, Math.max(0, (viewportPoint - rect.top) / trackingDistance))
 }
 
@@ -48,7 +51,7 @@ onBeforeUnmount(() => {
           class="draw"
           pathLength="1"
           :d="ARC"
-          :style="{ '--mobile-progress': mobileProgress }"
+          :stroke-dashoffset="mobileDashOffset"
           fill="none"
           stroke="var(--accent)"
           stroke-width="2"
@@ -141,7 +144,6 @@ onBeforeUnmount(() => {
   .draw {
     animation: none;
     stroke-dasharray: 1;
-    stroke-dashoffset: calc(1 - var(--mobile-progress, 0));
   }
 }
 </style>
