@@ -54,8 +54,8 @@ export const education: EducationItem[] = [
     id: 'infnet',
     institution: 'Instituto Infnet',
     course: 'MBA em UX Design, Arquitetura da Informação e Usabilidade',
-    start: '2026-04',
-    end: '2026-12',
+    start: '2025-04',
+    end: '2026-04',
     featured: true,
   },
   {

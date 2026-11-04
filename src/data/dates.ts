@@ -7,7 +7,7 @@ const parse = (ym: string) => {
 
 export const formatMonth = (ym: string) => {
   const { y, m } = parse(ym)
-  return `${MONTHS[m - 1]} ${y}`
+  return `${MONTHS[m - 1]}. ${y}`
 }
 
 export const formatRange = (start: string, end: string | null) =>
